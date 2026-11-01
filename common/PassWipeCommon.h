@@ -1,5 +1,5 @@
-#ifndef VO1DEK_WIPECODE_COMMON_H
-#define VO1DEK_WIPECODE_COMMON_H
+#ifndef VO1DEK_PASSWIPE_COMMON_H
+#define VO1DEK_PASSWIPE_COMMON_H
 
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
@@ -17,13 +17,13 @@
 /* Cross-process Darwin notification names.
    These are plain strings: any process may observe or post them, which is
    exactly why every payload is authenticated with the HMAC below. */
-#define VO1DEK_NOTIFY_REQUEST @"com.vo1dek.wipecode.request"
-#define VO1DEK_NOTIFY_RESULT  @"com.vo1dek.wipecode.result"
-#define VO1DEK_NOTIFY_DEVICE  @"com.vo1dek.wipecode.device"
+#define VO1DEK_NOTIFY_REQUEST @"com.vo1dek.passwipe.request"
+#define VO1DEK_NOTIFY_RESULT  @"com.vo1dek.passwipe.result"
+#define VO1DEK_NOTIFY_DEVICE  @"com.vo1dek.passwipe.device"
 
 /* Shared state directory. Both SpringBoard and Settings run as UID mobile,
    so this path is writable and readable from either side without privileges. */
-#define VO1DEK_DIR      @"/var/mobile/Library/WipeCode"
+#define VO1DEK_DIR      @"/var/mobile/Library/PassWipe"
 #define VO1DEK_SECRET   (VO1DEK_DIR @"/secret.plist")   /* {salt, digest}   - written by pref  */
 #define VO1DEK_DEVICE   (VO1DEK_DIR @"/device.plist")   /* {type, raw}      - written by sb    */
 #define VO1DEK_REQUEST  (VO1DEK_DIR @"/request.plist")  /* {digest}         - written by pref  */
@@ -204,4 +204,4 @@ static inline BOOL Vo1dekWritePlist(NSDictionary *plist, NSString *path) {
     return [d writeToFile:path options:NSDataWritingAtomic error:&err];
 }
 
-#endif /* VO1DEK_WIPECODE_COMMON_H */
+#endif /* VO1DEK_PASSWIPE_COMMON_H */

@@ -6,4 +6,4 @@ include $(THEOS)/makefiles/common.mk
 # The single subproject is a self-contained package.
 .PHONY: all-packages
 all-packages:
-	$(MAKE) -C wipecode package
+	$(MAKE) -C passwipe package

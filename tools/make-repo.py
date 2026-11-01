@@ -3,7 +3,7 @@
 
 Sileo, Zebra and APT expect a directory containing Packages, Packages.gz and
 Release, with the actual packages reachable relative to that directory via the
-Filename field. This script lays that out under <out>/pool/main/w/wipecode/.
+Filename field. This script lays that out under <out>/pool/main/p/passwipe/.
 """
 
 import argparse
@@ -20,8 +20,8 @@ import tarfile
 ARCH = "iphoneos-arm64"
 COMPONENT = "main"
 SUITE = "stable"
-ORIGIN = "WipeCode"
-POOL = f"pool/{COMPONENT}/w/wipecode"
+ORIGIN = "PassWipe"
+POOL = f"pool/{COMPONENT}/p/passwipe"
 
 # Clients disagree about which binary-<arch> they fetch. The packages really are
 # arm64 only, but an arm64 package list is also a valid answer for the generic
@@ -31,9 +31,9 @@ ARCH_DIRS = ["iphoneos-arm64", "iphoneos-arm", "all"]
 
 # Sileo lowercases the source URL before it fetches anything, and GitHub Pages
 # routes project sites case-sensitively as /<repo-name>/. The repository is
-# therefore named `wipecode` in lowercase so the URL Sileo requests is the
+# therefore named `passwipe` in lowercase so the URL Sileo requests is the
 # canonical one; publishing the index under any other spelling is pointless.
-BASE_URL = "https://no-recovery.github.io/wipecode"
+BASE_URL = "https://no-recovery.github.io/passwipe"
 
 # Fields we regenerate ourselves; whatever the .deb control says is dropped.
 GENERATED = {"filename", "size", "md5sum", "sha1", "sha256"}
@@ -173,18 +173,17 @@ INDEX_HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WipeCode package source</title>
+<title>PassWipe package source</title>
 <style>
 body {{ font: 15px/1.6 -apple-system, system-ui, sans-serif; margin: 2rem auto; max-width: 40rem; padding: 0 1rem; }}
 code {{ background: #f2f2f7; padding: .1rem .3rem; border-radius: .25rem; }}
 </style>
 </head>
 <body>
-<h1>WipeCode</h1>
+<h1>PassWipe</h1>
 <p>Add this URL as a package source in Sileo or Zebra:</p>
 <p><code>{base}</code></p>
-<p>Install <code>com.vo1dek.wipecode-sb</code> first, then
-<code>com.vo1dek.wipecode-pref</code>.</p>
+<p>The package is <code>com.vo1dek.passwipe</code>.</p>
 <p>Warning: this tweak performs Erase All Content and Settings. It is
 irreversible. Test on a device with nothing on it.</p>
 </body>

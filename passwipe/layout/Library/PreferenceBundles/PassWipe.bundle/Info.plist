@@ -5,15 +5,15 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ru</string>
 	<key>CFBundleDisplayName</key>
-	<string>WipeCode</string>
+	<string>PassWipe</string>
 	<key>CFBundleExecutable</key>
-	<string>WipeCode</string>
+	<string>PassWipe</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.vo1dek.wipecode.pane</string>
+	<string>com.vo1dek.passwipe.pane</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>WipeCode</string>
+	<string>PassWipe</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
@@ -21,6 +21,6 @@
 	<key>CFBundleVersion</key>
 	<string>2.6</string>
 	<key>NSPrincipalClass</key>
-	<string>WipeCodePaneViewController</string>
+	<string>PassWipePaneViewController</string>
 </dict>
 </plist>

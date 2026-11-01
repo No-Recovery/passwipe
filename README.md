@@ -17,17 +17,17 @@ Rootless-твик (Dopamine, iOS 15–16.6.1). Добавляет в «Наст�
 Источник для Sileo / Zebra:
 
 ```
-https://no-recovery.github.io/wipecode
+https://no-recovery.github.io/passwipe
 ```
 
 Имя репозитория строчными буквами — не украшение. Sileo приводит адрес источника к
 нижнему регистру, а адрес project site в GitHub Pages регистрозависим: при
-`No-Recovery/WipeCode` Sileo запрашивал `/WipeCode/`, которого не существует, и
+`No-Recovery/PassWipe` Sileo запрашивал `/PassWipe/`, которого не существует, и
 показывал 404.
 
-Ставится **один** пакет — `com.vo1dek.wipecode`. Он объявляет `Conflicts`/`Replaces` на
-старые `com.vo1dek.wipecode-sb` и `com.vo1dek.wipecode-pref`, поэтому пакетный менеджер
-снимет их сам; руками удалять не нужно.
+Ставится **один** пакет — `com.vo1dek.passwipe`. Он объявляет `Conflicts`/`Replaces` на
+прежние `com.vo1dek.wipecode`, `com.vo1dek.wipecode-sb` и `com.vo1dek.wipecode-pref`,
+поэтому пакетный менеджер снимет их сам; руками удалять не нужно.
 
 Почему не `raw.githubusercontent.com`: он долго отдавал устаревший `Packages` уже после
 того, как ветка уехала вперёд, и в списке оказывались и старая падающая сборка, и новая.
@@ -42,11 +42,11 @@ bundle id, а решает, какая половина запустится, и
 
 | | процесс | роль |
 |---|---|---|
-| одна и та же `WipeCode.dylib` | `com.apple.Preferences` | панель, ввод пароля, HMAC, отправка запроса |
-| одна и та же `WipeCode.dylib` | `com.apple.springboard`  | сверка HMAC, вызов сброса данных |
+| одна и та же `PassWipe.dylib` | `com.apple.Preferences` | панель, ввод пароля, HMAC, отправка запроса |
+| одна и та же `PassWipe.dylib` | `com.apple.springboard`  | сверка HMAC, вызов сброса данных |
 
 Связь между половинами — Darwin notification (payload не несёт) + файлы в
-`/var/mobile/Library/WipeCode` (оба процесса под UID `mobile`).
+`/var/mobile/Library/PassWipe` (оба процесса под UID `mobile`).
 
 Darwin notification может отправить любой процесс, поэтому авторизация — не сам факт
 уведомления, а HMAC-SHA256 от введённого пароля с персистентной случайной солью.
@@ -64,7 +64,7 @@ Darwin notification может отправить любой процесс, п�
 
 Поэтому твик добавляет в список Настроек собственную строку и сам пушит свой контроллер с
 `WKWebView`. Страница та же (`pane.html`), переехала из
-`PreferenceBundles/WipeCode.bundle` в `/var/jb/Library/WipeCode/pane.html` — каталог
+`PreferenceBundles/PassWipe.bundle` в `/var/jb/Library/PassWipe/pane.html` — каталог
 `PreferenceBundles` Настройки перечисляют, и туда больше ничего класть не нужно.
 
 ## Вызов стирания
@@ -103,7 +103,7 @@ subproject. Он самодостаточен: свой `control`, свой фи
 ```sh
 export THEOS=/opt/theos
 mkdir -p "$THEOS/packages"
-make -C wipecode package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless \
+make -C passwipe package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless \
   THEOS_PACKAGE_DIR="$THEOS/packages"
 ```
 
@@ -128,7 +128,7 @@ python3 tools/make-repo.py dist packages/*.deb
 Всё пишется в один файл:
 
 ```
-/var/mobile/Library/WipeCode/probe.log
+/var/mobile/Library/PassWipe/probe.log
 ```
 
 Probe выполняется **внутри Preferences**, а не из SpringBoard, и это принципиально: классы
@@ -154,7 +154,7 @@ Probe выполняется **внутри Preferences**, а не из SpringBo
 probe перезапускается сам — вручную удалять лог не нужно. Чтобы прогнать заново на
 текущей сборке, достаточно удалить `probe.log`.
 
-Забрать лог: Filza → `/var/mobile/Library/WipeCode/probe.log`.
+Забрать лог: Filza → `/var/mobile/Library/PassWipe/probe.log`.
 
 ## Известные ограничения
 

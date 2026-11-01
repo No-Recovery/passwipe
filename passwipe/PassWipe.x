@@ -1,4 +1,4 @@
-// WipeCode.x — one dylib, two processes.
+// PassWipe.x — one dylib, two processes.
 //
 // The two roles cannot be merged into a single process, because FBSSystemService
 // needs the com.apple.springboard entitlement and only SpringBoard carries it,
@@ -24,16 +24,16 @@
 #import <Preferences/PSListController.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
-#import "../common/WipeCodeCommon.h"
+#import "../common/PassWipeCommon.h"
 
 // The page ships as a plain file next to the dylib. The controller class lives in
 // the dylib, which is already resident in Settings, so the bundle only has to carry
 // the icon for the row that PreferenceLoader builds from the entry plist.
-static NSString *const Vo1dekPaneHTMLPath = @"/var/jb/Library/WipeCode/pane.html";
+static NSString *const Vo1dekPaneHTMLPath = @"/var/jb/Library/PassWipe/pane.html";
 static NSString *const Vo1dekPaneBundlesPath = @"/var/jb/Library/PreferenceBundles";
 static NSString *const Vo1dekEntryPlistsPath = @"/var/jb/Library/PreferenceLoader/Preferences";
 static NSString *const Vo1dekEntryPlistPath =
-    @"/var/jb/Library/PreferenceLoader/Preferences/WipeCode.plist";
+    @"/var/jb/Library/PreferenceLoader/Preferences/PassWipe.plist";
 static NSString *const Vo1dekCellID = @"Vo1dekPaneCell";
 
 static __weak WKWebView *Vo1dekPaneWebView;
@@ -187,7 +187,7 @@ static BOOL Vo1dekEraseViaSystemService(NSString **outError) {
     // the enum values can be read off a real Settings reset from a disassembly.
     const long long mode = 0;
     const long long options = 0;
-    NSString *reason = @"WipeCode authenticated request";
+    NSString *reason = @"PassWipe authenticated request";
 
     // objc_msgSend is declared to return void, so the call has to go through a
     // void * and be read back as the id the initialiser actually returns.
@@ -651,10 +651,10 @@ static void Vo1dekPromptForNewPassword(BOOL confirming, NSString *firstEntry) {
 // Settings pushes the detail controller because of its type, and subclassing a
 // forward-declared class left _OBJC_CLASS_$_PSListController undefined at link
 // time.
-@interface WipeCodePaneViewController : PSListController <WKNavigationDelegate>
+@interface PassWipePaneViewController : PSListController <WKNavigationDelegate>
 @end
 
-@implementation WipeCodePaneViewController
+@implementation PassWipePaneViewController
 
 // PSListController builds a specifier table in -loadView and reloads it from
 // -specifiers once the view appears. This pane has no specifiers at all - it is a
@@ -675,7 +675,7 @@ static void Vo1dekPromptForNewPassword(BOOL confirming, NSString *firstEntry) {
 
 - (void)viewDidLoad {
     Vo1dekLog(@"[pref] pane opened as %@", NSStringFromClass([self class]));
-    self.title = @"WipeCode";
+    self.title = @"PassWipe";
     // The page paints its own black background, so the controller must not flash
     // a lighter one while the web view is being set up.
     self.view.backgroundColor = [UIColor blackColor];
@@ -818,7 +818,7 @@ static UITableViewCell *Vo1dekPaneCell(UITableView *tv) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:Vo1dekCellID];
     }
-    cell.textLabel.text = @"WipeCode";
+    cell.textLabel.text = @"PassWipe";
     UIImage *icon = Vo1dekPaneIcon();
     if (icon != nil) {
         cell.imageView.image = icon;
@@ -848,7 +848,7 @@ static UITableViewCell *Vo1dekCellHook(id self, SEL _cmd, UITableView *tv, NSInd
 // own container and exposes pushViewController:animated:. So walk up the parent
 // chain until something can push, instead of assuming a navigation controller.
 static void Vo1dekPushPane(id host) {
-    WipeCodePaneViewController *pane = [WipeCodePaneViewController new];
+    PassWipePaneViewController *pane = [PassWipePaneViewController new];
 
     UIViewController *node = (UIViewController *)host;
     NSUInteger guard = 0;
@@ -1041,8 +1041,8 @@ static void Vo1dekPollForContainer(void) {
 static void Vo1dekLogPaneBundles(void) {
     NSArray *entries = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:Vo1dekPaneBundlesPath
                                                                           error:NULL];
-    BOOL ours = [entries containsObject:@"WipeCode.bundle"];
-    Vo1dekLog(@"[probe] PreferenceBundles entries: %lu, WipeCode.bundle present=%d",
+    BOOL ours = [entries containsObject:@"PassWipe.bundle"];
+    Vo1dekLog(@"[probe] PreferenceBundles entries: %lu, PassWipe.bundle present=%d",
               (unsigned long)entries.count, (int)ours);
 }
 
@@ -1056,7 +1056,7 @@ static void Vo1dekLogEntryPlists(void) {
     Vo1dekLog(@"[probe] PreferenceLoader entries: %lu", (unsigned long)entries.count);
     for (NSString *entry in entries) {
         Vo1dekLog(@"[probe]   %@%@", entry,
-                  [entry isEqualToString:@"WipeCode.plist"] ? @"   <== ours" : @"");
+                  [entry isEqualToString:@"PassWipe.plist"] ? @"   <== ours" : @"");
     }
 
     NSDictionary *plist = Vo1dekReadPlist(Vo1dekEntryPlistPath);
@@ -1064,16 +1064,16 @@ static void Vo1dekLogEntryPlists(void) {
     Vo1dekLog(@"[probe] entry plist parsed=%d entry=%@", (int)(entry != nil), entry);
 
     NSBundle *bundle = [NSBundle bundleWithPath:[Vo1dekPaneBundlesPath
-                                               stringByAppendingPathComponent:@"WipeCode.bundle"]];
+                                               stringByAppendingPathComponent:@"PassWipe.bundle"]];
     UIImage *icon = [UIImage imageNamed:@"icon"
                                inBundle:bundle
            compatibleWithTraitCollection:nil];
-    Vo1dekLog(@"[probe] WipeCode.bundle via NSBundle=%d principal=%@ icon=%@",
+    Vo1dekLog(@"[probe] PassWipe.bundle via NSBundle=%d principal=%@ icon=%@",
               (int)(bundle != nil), bundle.infoDictionary[@"NSPrincipalClass"],
               icon ?: @"none");
 
-    Class pane = NSClassFromString(@"WipeCodePaneViewController");
-    Vo1dekLog(@"[probe] WipeCodePaneViewController resident=%d", (int)(pane != Nil));
+    Class pane = NSClassFromString(@"PassWipePaneViewController");
+    Vo1dekLog(@"[probe] PassWipePaneViewController resident=%d", (int)(pane != Nil));
     Class list = NSClassFromString(@"PSListController");
     if (pane != Nil) {
         Vo1dekLog(@"[probe]   superclass=%@", NSStringFromClass(class_getSuperclass(pane)));
@@ -1094,7 +1094,7 @@ static void Vo1dekRunProbeIfNeeded(void) {
     Vo1dekLog(@"[probe] ==== pref run v%d ====", VO1DEK_PROBE_VERSION);
 
     // v1..v6 settled the open questions: there is no PSWebViewController in this
-    // process, and Settings really does see WipeCode.bundle in PreferenceBundles.
+    // process, and Settings really does see PassWipe.bundle in PreferenceBundles.
     // v7 added the entry plist that PreferenceLoader turns into the row. v8 exists
     // because the entry alone gets the row built but the detail class was a plain
     // UIViewController, and Settings pushes the detail as a PSListController.

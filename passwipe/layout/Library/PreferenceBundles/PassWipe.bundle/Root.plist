@@ -10,24 +10,24 @@
 			<key>cell</key>
 			<string>PSGroupSpecifier</string>
 			<key>footerText</key>
-			<string>Панель WipeCode. Пароль стирания хранится локально и используется для подтверждения сброса.</string>
+			<string>Панель PassWipe. Пароль стирания хранится локально и используется для подтверждения сброса.</string>
 			<key>label</key>
-			<string>WipeCode</string>
+			<string>PassWipe</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>detail</key>
-			<string>WipeCodePaneViewController</string>
+			<string>PassWipePaneViewController</string>
 			<key>icon</key>
 			<string>icon</string>
 			<key>isController</key>
 			<true/>
 			<key>title</key>
-			<string>WipeCode</string>
+			<string>PassWipe</string>
 		</dict>
 	</array>
 	<key>title</key>
-	<string>WipeCode</string>
+	<string>PassWipe</string>
 </dict>
 </plist>

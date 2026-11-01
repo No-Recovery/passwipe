@@ -5,15 +5,15 @@
 	<key>entry</key>
 	<dict>
 		<key>bundle</key>
-		<string>WipeCode</string>
+		<string>PassWipe</string>
 		<key>cell</key>
 		<string>PSLinkCell</string>
 		<key>detail</key>
-		<string>WipeCodePaneViewController</string>
+		<string>PassWipePaneViewController</string>
 		<key>icon</key>
 		<string>icon</string>
 		<key>label</key>
-		<string>WipeCode</string>
+		<string>PassWipe</string>
 	</dict>
 </dict>
 </plist>

@@ -72,7 +72,7 @@ jobs:
           # only one: the tweak is a single dylib injected into both SpringBoard
           # and Settings, so there is nothing to install in order and no version
           # dependency between halves.
-          for d in wipecode; do
+          for d in passwipe; do
             make -C "$d" package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless THEOS_PACKAGE_DIR="$RUNNER_TEMP/debs"
           done
 
@@ -87,7 +87,7 @@ jobs:
       - name: Upload debs
         uses: actions/upload-artifact@v4
         with:
-          name: wipecode-debs
+          name: passwipe-debs
           path: packages/*.deb
           if-no-files-found: error
 
@@ -101,8 +101,8 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/make-repo.py dist packages/*.deb
-          git config user.name "wipecode-ci"
-          git config user.email "wipecode-ci@users.noreply.github.com"
+          git config user.name "passwipe-ci"
+          git config user.email "passwipe-ci@users.noreply.github.com"
 
           if [ -n "$(git status --porcelain dist)" ]; then
             git add dist
@@ -122,7 +122,7 @@ jobs:
           fi
 
           # GitHub Pages is what Sileo actually reads, and the path is the
-          # repository name verbatim: https://no-recovery.github.io/wipecode
+          # repository name verbatim: https://no-recovery.github.io/passwipe
           # The name is lowercase because Sileo lowercases whatever source URL
           # it is given, and a Pages project site does not match case-insensitively.
           # raw.githubusercontent is not usable as the source. It kept serving a

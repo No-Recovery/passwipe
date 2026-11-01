@@ -5,3 +5,7 @@ packages/
 # the lowercase alias, which is why this matches any dist/pool at any depth
 # rather than only dist/pool itself.
 !dist/**/pool/**/*.deb
+
+# Python bytecode
+__pycache__/
+*.pyc
