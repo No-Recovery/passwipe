@@ -1,14 +1,14 @@
-Origin: WipeCode
-Label: WipeCode
+Origin: PassWipe
+Label: PassWipe
 Suite: stable
 Codename: stable
 Version: 2.6
 Architectures: iphoneos-arm64
 Components: main
-Date: Sun, 01 Nov 2026 21:30:14 GMT
+Date: Sun, 01 Nov 2026 21:37:51 GMT
 MD5Sum:
- c4cddca252315a326a2ad27841308825 854 Packages
- 6be8287ad990c5180505be0785da5d9e 529 Packages.gz
+ 612d7caa2a20a4b1a5a5c182dfb82ab0 896 Packages
+ 16ff8f0c4e1694f910231375f850a976 535 Packages.gz
 SHA256:
- 47402c55993eced46ff80c337262c53bce99f1fa3a01d40a0a9b7ccffdc086b0 854 Packages
- 62f19e070b813e693f255c3561dc10af0feb32c60e9e57a733e8f506048db7a9 529 Packages.gz
+ 09fb80e7c14768986ec2a331edcd3e055cdd8b8ba1b1dbc5369bae308ad4ddc5 896 Packages
+ 1acfec217ce6f03ba0929a1a869ab6b608d983d0905fa9314c029832d7a75839 535 Packages.gz
