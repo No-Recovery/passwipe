@@ -1,0 +1,14 @@
+Origin: WipeCode
+Label: WipeCode
+Suite: stable
+Codename: stable
+Version: 2.6
+Architectures: iphoneos-arm
+Components: main
+Date: Sun, 01 Nov 2026 21:30:14 GMT
+MD5Sum:
+ c4cddca252315a326a2ad27841308825 854 dists/stable/main/binary-iphoneos-arm/Packages
+ 6be8287ad990c5180505be0785da5d9e 529 dists/stable/main/binary-iphoneos-arm/Packages.gz
+SHA256:
+ 47402c55993eced46ff80c337262c53bce99f1fa3a01d40a0a9b7ccffdc086b0 854 dists/stable/main/binary-iphoneos-arm/Packages
+ 62f19e070b813e693f255c3561dc10af0feb32c60e9e57a733e8f506048db7a9 529 dists/stable/main/binary-iphoneos-arm/Packages.gz
